@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  chat-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/workspace
+      - /workspace/node_modules
+    depends_on:
+      - chat-backend
+    command: npm start
+    environment:
+      - VITE_API_URL=http://94.126.205.209:8001  # Используем реальный удалённый бекенд

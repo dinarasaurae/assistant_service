@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+aiohttp
+faiss-cpu
+sentence-transformers
+rank-bm25
+numpy
+scikit-learn
+sqlalchemy
+asyncpg
+pydantic
+pydantic-settings
+

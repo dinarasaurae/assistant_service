@@ -1,0 +1,18 @@
+<div class="chat-container">
+    <h1>Что вы хотите уточнить по работе сервиса?</h1>
+  
+    <input [(ngModel)]="question" type="text" placeholder="Введите вопрос..." />
+  
+    <button (click)="askQuestion()">Узнать</button>
+  
+    <p *ngIf="loading">Загрузка...</p>
+    <p *ngIf="error" class="error">{{ error }}</p>
+  
+    <div *ngIf="responseData">
+      <h2>Результат:</h2>
+      <p><strong>Ваш запрос:</strong> {{ responseData.search_query }}</p>
+      <p><strong>Найденный вопрос:</strong> {{ responseData.matched_question }}</p>
+      <p><strong>Ответ:</strong> {{ responseData.answer }}</p>
+    </div>
+  </div>
+  
