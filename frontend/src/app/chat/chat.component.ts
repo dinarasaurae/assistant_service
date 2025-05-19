@@ -16,10 +16,11 @@ export class ChatComponent {
   loading: boolean = false;
   error: string | null = null;
 
-  //API_URL = import.meta.env['VITE_API_URL'] || 'http://localhost:8001';
-  API_URL = import.meta.env['VITE_API_URL'] ?? 'http://94.126.205.209:8001';
+  API_URL = 'http://94.126.205.209/ask';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log("API_URL в Angular:", this.API_URL);
+  }
 
   askQuestion() {
     if (!this.question.trim()) {
@@ -30,13 +31,18 @@ export class ChatComponent {
     this.loading = true;
     this.error = null;
     this.responseData = null;
-
-    this.http.post(`${this.API_URL}/ask`, { question: this.question }).subscribe({
+    console.log("API_URL перед отправкой запроса:", this.API_URL);
+    console.log("Финальный URL запроса:", this.API_URL);
+    this.http.post(this.API_URL, { question: this.question }, {
+      headers: { 'Content-Type': 'application/json' }
+    }).subscribe({
       next: (data) => {
+        console.log("Ответ сервера:", data);
         this.responseData = data;
         this.loading = false;
       },
       error: (err) => {
+        console.error("Ошибка запроса:", err);
         this.error = 'Ошибка при получении ответа';
         this.loading = false;
       }

@@ -4,8 +4,6 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.backend
-    ports:
-      - "8001:8010"
     restart: always
     depends_on:
       - db
@@ -35,24 +33,16 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.frontend
-    # ports:
-    #   - "4200:4200"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     depends_on:
       - chat-backend
-    environment:
-      - VITE_API_URL=http://chat-backend:8010
-    command: npm run build
-
+      
   nginx:
     image: nginx:latest
     ports:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./frontend/dist/frontend/browser:/usr/share/nginx/html
+      - ./frontend/dist/frontend/browser:/usr/share/nginx/html:ro 
     depends_on:
       - chat-frontend
       - chat-backend
